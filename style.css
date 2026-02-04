@@ -217,6 +217,17 @@ h1 {
   border-radius: 18px;
   padding: 16px 20px;
   color: #6d3a2c;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.version {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #8a4c3d;
 }
 
 @media (max-width: 720px) {
