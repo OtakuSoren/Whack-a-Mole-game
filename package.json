@@ -1,0 +1,11 @@
+{
+  "name": "whack-a-mole-game",
+  "version": "1.1.0",
+  "description": "Whack-a-mole browser game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "license": "MIT"
+}
