@@ -154,6 +154,49 @@ h1 {
   transition: transform 0.2s ease;
 }
 
+.mole-face {
+  position: absolute;
+  left: 50%;
+  top: 36%;
+  width: 48%;
+  height: 34%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.mole-face::before,
+.mole-face::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 20%;
+  height: 28%;
+  border-radius: 50%;
+  background: #2e1a14;
+}
+
+.mole-face::before {
+  left: 14%;
+}
+
+.mole-face::after {
+  right: 14%;
+}
+
+.mole-mouth {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 52%;
+  height: 40%;
+  transform: translateX(-50%);
+  border: 3px solid #2e1a14;
+  border-top: none;
+  border-radius: 0 0 18px 18px;
+}
+
 .hole.pop::after {
   animation: pop 0.2s ease-out;
 }
@@ -161,6 +204,10 @@ h1 {
 .hole.active::after {
   transform: translateY(0);
   background: #5c352c;
+}
+
+.hole.active .mole-face {
+  opacity: 1;
 }
 
 .hole.gold::after {
@@ -177,6 +224,13 @@ h1 {
 
 .hole.miss {
   animation: miss 0.2s ease;
+}
+
+.hole.hit .mole-mouth,
+.hole.miss .mole-mouth {
+  border-bottom: none;
+  border-top: 3px solid #2e1a14;
+  border-radius: 18px 18px 0 0;
 }
 
 @keyframes hit {
