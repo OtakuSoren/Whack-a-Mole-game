@@ -154,6 +154,10 @@ h1 {
   transition: transform 0.2s ease;
 }
 
+.hole.pop::after {
+  animation: pop 0.2s ease-out;
+}
+
 .hole.active::after {
   transform: translateY(0);
   background: #5c352c;
@@ -171,6 +175,10 @@ h1 {
   animation: hit 0.2s ease;
 }
 
+.hole.miss {
+  animation: miss 0.2s ease;
+}
+
 @keyframes hit {
   0% {
     transform: scale(1);
@@ -180,6 +188,71 @@ h1 {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: translateY(140%) scale(0.9);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes miss {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.score-float {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  font-size: 1.1rem;
+  animation: floatUp 0.7s ease forwards;
+  pointer-events: none;
+}
+
+.score-float--normal {
+  color: #fff7e8;
+}
+
+.score-float--gold {
+  color: #ffe08a;
+  text-shadow: 0 2px 8px rgba(255, 216, 90, 0.6);
+}
+
+.score-float--bomb {
+  color: #ffb4a2;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -24px);
   }
 }
 

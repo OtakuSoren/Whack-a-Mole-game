@@ -10,6 +10,7 @@ const speedInput = document.getElementById('speed');
 const speedValue = document.getElementById('speedValue');
 const modeSelect = document.getElementById('mode');
 const soundToggle = document.getElementById('soundToggle');
+const vibrateToggle = document.getElementById('vibrateToggle');
 
 const GAME_DURATION = 30;
 const MAX_LIVES = 3;
@@ -79,9 +80,18 @@ const playTone = (frequency, duration = 0.08) => {
   oscillator.stop(audioContext.currentTime + duration);
 };
 
+const triggerVibration = (pattern) => {
+  if (!vibrateToggle.checked) {
+    return;
+  }
+  if (navigator.vibrate) {
+    navigator.vibrate(pattern);
+  }
+};
+
 const clearMole = () => {
   if (activeIndex >= 0) {
-    holes[activeIndex].classList.remove('active', 'hit', 'gold', 'bomb');
+    holes[activeIndex].classList.remove('active', 'hit', 'gold', 'bomb', 'pop', 'miss');
     holes[activeIndex].dataset.type = '';
   }
   activeIndex = -1;
@@ -96,6 +106,12 @@ const markMiss = () => {
   setCombo(0);
   setLives(Math.max(0, lives - 1));
   playTone(220, 0.12);
+  triggerVibration([80, 50, 80]);
+  if (activeIndex >= 0) {
+    const hole = holes[activeIndex];
+    hole.classList.add('miss');
+    setTimeout(() => hole.classList.remove('miss'), 200);
+  }
   if (lives <= 1) {
     endGame();
   }
@@ -121,15 +137,24 @@ const spawnMole = () => {
   activeIndex = nextIndex;
   activeType = pickMoleType();
   awaitingHit = true;
-  holes[nextIndex].classList.add('active');
+  holes[nextIndex].classList.add('active', 'pop');
   holes[nextIndex].classList.toggle('gold', activeType === 'gold');
   holes[nextIndex].classList.toggle('bomb', activeType === 'bomb');
   holes[nextIndex].dataset.type = activeType;
+  setTimeout(() => holes[nextIndex].classList.remove('pop'), 200);
 };
 
 const applyScore = (base) => {
   const multiplier = 1 + Math.floor(combo / COMBO_STEP) * 0.5;
   setScore(score + Math.round(base * multiplier));
+};
+
+const showScoreFloat = (hole, text, type) => {
+  const float = document.createElement('span');
+  float.className = `score-float score-float--${type}`;
+  float.textContent = text;
+  hole.appendChild(float);
+  setTimeout(() => float.remove(), 700);
 };
 
 const handleHit = (index) => {
@@ -144,14 +169,20 @@ const handleHit = (index) => {
     setCombo(0);
     applyScore(-2);
     playTone(160, 0.14);
+    triggerVibration([120, 40, 120]);
+    showScoreFloat(hole, '-2', 'bomb');
   } else if (activeType === 'gold') {
     setCombo(combo + 1);
     applyScore(3);
     playTone(660, 0.1);
+    triggerVibration(40);
+    showScoreFloat(hole, '+3', 'gold');
   } else {
     setCombo(combo + 1);
     applyScore(1);
     playTone(520, 0.08);
+    triggerVibration(20);
+    showScoreFloat(hole, '+1', 'normal');
   }
 
   if (modeSelect.value === 'survival') {
