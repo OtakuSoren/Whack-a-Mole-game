@@ -26,16 +26,35 @@
           <span class="label">最高分</span>
           <span id="best" class="value">0</span>
         </div>
+        <div class="stat">
+          <span class="label">連擊</span>
+          <span id="combo" class="value">0</span>
+        </div>
+        <div class="stat">
+          <span class="label">生命</span>
+          <span id="lives" class="value">3</span>
+        </div>
       </div>
     </header>
 
     <section class="controls">
       <button id="startBtn" class="btn btn--primary">開始遊戲</button>
       <button id="resetBtn" class="btn" disabled>重設</button>
+      <label class="select">
+        模式
+        <select id="mode">
+          <option value="time">限時模式</option>
+          <option value="survival">生存模式</option>
+        </select>
+      </label>
       <label class="speed">
         地鼠速度
         <input id="speed" type="range" min="400" max="1200" step="100" value="800" />
         <span id="speedValue">0.8s</span>
+      </label>
+      <label class="toggle">
+        <input id="soundToggle" type="checkbox" checked />
+        音效
       </label>
     </section>
 
@@ -51,8 +70,15 @@
       <button class="hole" aria-label="洞 9"></button>
     </section>
 
+    <section class="legend">
+      <div><span class="legend__dot legend__dot--normal"></span>一般地鼠 +1</div>
+      <div><span class="legend__dot legend__dot--gold"></span>金色地鼠 +3</div>
+      <div><span class="legend__dot legend__dot--bomb"></span>炸彈地鼠 -2</div>
+    </section>
+
     <footer class="tips">
-      <p>提示：地鼠冒出時點擊或按下 Enter/Space 即可得分。</p>
+      <p>提示：地鼠冒出時點擊或按下 Enter/Space 即可得分。生存模式需要避免漏打。</p>
+      <span class="version">版本 v1.1.0</span>
     </footer>
   </main>
 

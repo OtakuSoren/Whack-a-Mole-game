@@ -22,5 +22,3 @@ Then open `http://localhost:3000` in your browser.
 4. Wait 1–2 minutes, then open the URL shown on the Pages screen.
 
 If you update the code, just push to `main` again and GitHub Pages will refresh.
-
-GitHub Pages test

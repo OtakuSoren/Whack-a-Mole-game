@@ -1,6 +1,6 @@
 {
   "name": "whack-a-mole-game",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Whack-a-mole browser game",
   "main": "server.js",
   "scripts": {
